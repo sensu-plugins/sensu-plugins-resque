@@ -5,6 +5,9 @@ This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachang
 
 ## Unreleased][unreleased]
 
+### Added
+- enabled to specify db number for the redis connection with `-d` option
+
 ## [0.0.2] - 2015-06-03
 
 ### Fixed
