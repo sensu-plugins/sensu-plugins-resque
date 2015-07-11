@@ -45,6 +45,12 @@ class ResqueMetrics < Sensu::Plugin::Metric::CLI::Graphite
          description: 'Redis port',
          default: '6379'
 
+  option :db,
+         short: '-d DB',
+         long: '--db DB',
+         description: 'Redis DB',
+         default: '0'
+
   option :namespace,
          description: 'Resque namespace',
          short: '-n NAMESPACE',
@@ -58,7 +64,7 @@ class ResqueMetrics < Sensu::Plugin::Metric::CLI::Graphite
          default: "#{Socket.gethostname}.resque"
 
   def run
-    redis = Redis.new(host: config[:hostname], port: config[:port])
+    redis = Redis.new(host: config[:hostname], port: config[:port], db: config[:db])
     Resque.redis = redis
     Resque.redis.namespace = config[:namespace]
     count = Resque::Failure::Redis.count
