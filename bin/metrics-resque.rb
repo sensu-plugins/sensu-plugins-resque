@@ -72,7 +72,8 @@ class ResqueMetrics < Sensu::Plugin::Metric::CLI::Graphite
 
     Resque.queues.each do |v|
       sz = Resque.size(v)
-      output "#{config[:scheme]}.queue.#{v}", sz
+      qn = queue.gsub(/[^\w-]/, '_').downcase
+      output "#{config[:scheme]}.queue.#{qn}", sz
     end
 
     output "#{config[:scheme]}.queues", info[:queues]
