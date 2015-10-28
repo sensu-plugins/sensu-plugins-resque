@@ -70,9 +70,9 @@ class ResqueMetrics < Sensu::Plugin::Metric::CLI::Graphite
     count = Resque::Failure::Redis.count
     info = Resque.info
 
-    Resque.queues.each do |v|
-      sz = Resque.size(v)
-      qn = v.gsub(/[^\w-]/, '_').downcase
+    Resque.queues.each do |q|
+      sz = Resque.size(q)
+      qn = q.gsub(/[^\w-]/, '_').downcase
       output "#{config[:scheme]}.queue.#{qn}", sz
     end
 
