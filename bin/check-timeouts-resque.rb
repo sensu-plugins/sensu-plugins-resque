@@ -36,47 +36,46 @@ require 'date'
 
 class ResqueTimeouts < Sensu::Plugin::Check::CLI
   option :hostname,
-         :short => '-h HOSTNAME',
-         :long => '--host HOSTNAME',
-         :description => 'Redis hostname',
-         :required => true
+         short: '-h HOSTNAME',
+         long: '--host HOSTNAME',
+         description: 'Redis hostname',
+         required: true
 
   option :port,
-         :short => '-P PORT',
-         :long => '--port PORT',
-         :description => 'Redis port',
-         :default => '6379'
+         short: '-P PORT',
+         long: '--port PORT',
+         description: 'Redis port',
+         default: '6379'
 
   option :db,
-         :short => '-d DB',
-         :long => '--db DB',
-         :description => 'Redis DB',
-         :default => '0'
+         short: '-d DB',
+         long: '--db DB',
+         description: 'Redis DB',
+         default: '0'
 
   option :namespace,
-         :description => 'Resque namespace',
-         :short => '-n NAMESPACE',
-         :long => '--namespace NAMESPACE',
-         :default => 'resque'
+         description: 'Resque namespace',
+         short: '-n NAMESPACE',
+         long: '--namespace NAMESPACE',
+         default: 'resque'
 
   option :queue,
-         :description => 'Name of queue to check',
-         :short => '-q QUEUE',
-         :long => '--queue QUEUE',
-         :required => true
+         description: 'Name of queue to check',
+         short: '-q QUEUE',
+         long: '--queue QUEUE',
+         required: true
 
   option :max_lifetime,
-         :description => 'Maximum amount of time a job should consume',
-         :short => '-t TIME_SECS',
-         :long => '--time TIME_SECS',
-         :required => true
-
+         description: 'Maximum amount of time a job should consume',
+         short: '-t TIME_SECS',
+         long: '--time TIME_SECS',
+         required: true
 
   def run
     redis = Redis.new(
-        :host => config[:hostname],
-        :port => config[:port],
-        :db   => config[:db]
+      host: config[:hostname],
+      port: config[:port],
+      db:   config[:db]
     )
 
     Resque.redis = redis
@@ -86,29 +85,26 @@ class ResqueTimeouts < Sensu::Plugin::Check::CLI
     queue_name = config[:queue]
 
     workers = Resque.working
-    jobs = workers.collect {|w| w.job }
+    jobs = workers.collect(&:job)
     worker_jobs = workers.zip(jobs)
 
     job_timeout = false
 
-    worker_jobs.each do |worker,job|
-        if queue_name == job['queue']
-            host, pid, _ = worker.to_s.split(':')
+    worker_jobs.each do |worker, job|
+      next unless queue_name == job['queue']
+      host, pid, _ = worker.to_s.split(':')
+      diff_secs = (Time.now - Time.parse(job['run_at'])).round
 
-            diff_secs = (Time.now - Time.parse(job['run_at'])).round()
-
-            if diff_secs > max_lifetime
-                output "#{host} (pid: #{pid}) is taking too much time at #{diff_secs} "\
-                    "seconds (max: #{max_lifetime}) on class #{job['payload']['class']}"
-                job_timeout = true
-            end
-        end
+      next if diff_secs <= max_lifetime
+      output "#{host} (pid: #{pid}) is taking too much time at #{diff_secs} "\
+        "seconds (max: #{max_lifetime}) on class #{job['payload']['class']}"
+      job_timeout = true
     end
 
     if job_timeout
-        critical
+      critical
     else
-        ok
+      ok
     end
   end
 end
