@@ -92,7 +92,7 @@ class ResqueTimeouts < Sensu::Plugin::Check::CLI
 
     worker_jobs.each do |worker, job|
       next unless queue_name == job['queue']
-      host, pid, _ = worker.to_s.split(':')
+      host, pid, queues = worker.to_s.split(':')
       diff_secs = (Time.now - Time.parse(job['run_at'])).round
 
       next if diff_secs <= max_lifetime
