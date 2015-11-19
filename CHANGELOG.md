@@ -5,9 +5,13 @@ This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachang
 
 ## Unreleased
 
-## [0.0.5] - 2015-11-19
+## [0.1.0] - 2015-11-19
 ### Added
 - check timeouts: new script to raise an alert when a job has been running for too much time
+
+### Changed
+- Update to rubocop 0.32.1
+- metrics-resque.rb: format queue name to be graphite friendly
 
 ## [0.0.4] - 2015-07-14
 ### Changed
