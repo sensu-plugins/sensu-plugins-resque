@@ -11,6 +11,7 @@
 
 ## Files
  * bin/metrics-resque.rb
+ * bin/check-timeouts-resque.rb
 
 ## Usage
 
