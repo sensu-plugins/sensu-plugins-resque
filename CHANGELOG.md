@@ -5,6 +5,10 @@ This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachang
 
 ## Unreleased
 
+## [0.0.5] - 2015-11-19
+### Added
+- check timeouts: new script to raise an alert when a job has been running for too much time
+
 ## [0.0.4] - 2015-07-14
 ### Changed
 - updated sensu-plugin gem to 1.2.0
