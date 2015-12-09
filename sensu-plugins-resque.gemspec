@@ -15,8 +15,8 @@ Gem::Specification.new do |s|
   s.authors                = ['Sensu-Plugins and contributors']
   s.cert_chain             = ['certs/sensu-plugins.pem']
   s.date                   = Date.today.to_s
-  s.description            = 'This plugin provides native instrumentation for collecting 
-                              Resque metrics for queue, worker, working, failed, pending, 
+  s.description            = 'This plugin provides native instrumentation for collecting
+                              Resque metrics for queue, worker, working, failed, pending,
                               and processed jobs.'
   s.email                  = '<sensu-users@googlegroups.com>'
   s.executables            = Dir.glob('bin/**/*.rb').map { |file| File.basename(file) }
