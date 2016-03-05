@@ -16,13 +16,15 @@ notifications:
     on_failure: always
 script:
 - bundle exec rake default
+- gem build sensu-plugins-resque.gemspec
+- gem install sensu-plugins-resque-*.gem
 deploy:
   provider: rubygems
   api_key:
-    secure: MDWJWIWi+iNSVqyLlRQcGl5oPaNw2UnYaD0hrPtAVQt8XJkRu9bqcdhvajZOq5TNCicgWUawON1E0Uxd4iW95CjDymxdMrmnczzqKmMn2fbo7fIDxIMz/7A7h/O+x000F/8VzjOY5J7Zg/DFaPv1AhaBEpYqHHAIrTcrvWRKkfg=
+    secure: GEx4Rkltr3udJ6fKm/bmEm8rYSSunuP1M9oOKSz4oYwmj6YFTZzLQ75euP+z/WQLVJ2EiCKz3s0n7ZNCfB4mgIkzlQDYUdAIJP4r7L/0kUHPgdX1x8xLJ5I0jj5pD4QE6CZi/KQaEv59T1FaJHTMmwt4DvKgV2JKRgxDXV7wOdk=
   gem: sensu-plugins-resque
   on:
-    tags: true
+    ags: true
     all_branches: true
     rvm: 1.9.3
     rvm: 2.0
