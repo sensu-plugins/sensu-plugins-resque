@@ -24,7 +24,7 @@ deploy:
     secure: GEx4Rkltr3udJ6fKm/bmEm8rYSSunuP1M9oOKSz4oYwmj6YFTZzLQ75euP+z/WQLVJ2EiCKz3s0n7ZNCfB4mgIkzlQDYUdAIJP4r7L/0kUHPgdX1x8xLJ5I0jj5pD4QE6CZi/KQaEv59T1FaJHTMmwt4DvKgV2JKRgxDXV7wOdk=
   gem: sensu-plugins-resque
   on:
-    ags: true
+    tags: true
     all_branches: true
     rvm: 1.9.3
     rvm: 2.0
