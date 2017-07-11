@@ -8,7 +8,7 @@ This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachang
 - Ruby 2.3.0 & 2.4.1 testing
 
 ### Breaking Changes
-- Removed Ruby 1.9.3 support
+- Removed support for Ruby versions < 2.2.2
 
 ## [0.1.0] - 2015-11-19
 ### Added
