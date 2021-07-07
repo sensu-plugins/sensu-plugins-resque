@@ -4,6 +4,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachangelog.com/)
 
 ## [Unreleased]
+### Breaking Changes
+- Remove EOL Ruby: 2.2.2; (@phumpal)
 
 ## [1.0.0] - 2017-07-12
 ### Added

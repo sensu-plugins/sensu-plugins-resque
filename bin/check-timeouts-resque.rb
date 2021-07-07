@@ -80,7 +80,7 @@ class ResqueTimeouts < Sensu::Plugin::Check::CLI
     Resque.redis = redis
     Resque.redis.namespace = config[:namespace]
 
-    max_lifetime = config[:max_lifetime].to_i > 0 ? config[:max_lifetime].to_i : 100
+    max_lifetime = config[:max_lifetime].to_i.positive? ? config[:max_lifetime].to_i : 100
     queue_name = config[:queue]
 
     workers = Resque.working
